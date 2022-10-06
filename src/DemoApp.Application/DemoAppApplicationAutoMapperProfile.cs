@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using DemoApp.Companies;
+using DemoApp.Sites;
 
 namespace DemoApp;
 
@@ -6,8 +8,13 @@ public class DemoAppApplicationAutoMapperProfile : Profile
 {
     public DemoAppApplicationAutoMapperProfile()
     {
-        /* You can configure your AutoMapper mapping configuration here.
-         * Alternatively, you can split your mapping configurations
-         * into multiple profile classes for a better organization. */
+        CreateMap<Company, CompanyDto>();
+        CreateMap<CreateCompanyDto, Company>();
+        CreateMap<UpdateCompanyDto, Company>();
+
+
+        CreateMap<Site, SiteDto>();
+        CreateMap<CreateSiteDto, Site>();
+        CreateMap<UpdateSiteDto, Site>();
     }
 }

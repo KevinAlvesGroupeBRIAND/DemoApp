@@ -17,4 +17,8 @@
     <ProjectReference Include="..\DemoApp.Application.Contracts\DemoApp.Application.Contracts.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Sites\" />
+  </ItemGroup>
+
 </Project>

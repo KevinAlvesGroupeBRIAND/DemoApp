@@ -5,7 +5,8 @@ namespace DemoApp;
 
 [DependsOn(
     typeof(DemoAppDomainModule),
-    typeof(DemoAppApplicationContractsModule)
+    typeof(DemoAppApplicationContractsModule),
+    typeof(AbpAutoMapperModule)
     )]
 public class DemoAppApplicationModule : AbpModule
 {

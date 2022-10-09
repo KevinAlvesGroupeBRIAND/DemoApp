@@ -10,7 +10,7 @@ namespace DemoApp.RepositoryExtensions
 {
     public static class SiteRepositoryExtension
     {
-        public static IQueryable<Site> IncludeDetails(this IQueryable<Site> query, bool include = false)
+        public static IQueryable<Site> IncludeDetails(this IQueryable<Site> query, bool include = true)
         {
             if (!include)
                 return query;

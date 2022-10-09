@@ -1,4 +1,5 @@
-﻿using DemoApp.Sites;
+﻿using DemoApp.Companies.Childs;
+using DemoApp.Sites;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,9 +11,9 @@ namespace DemoApp.Companies
     {
         public string Code { get; set; }
 
-        public string Nom { get; set; }
+        public string Name { get; set; }
 
-        public ICollection<SiteDto> Sites { get; set; }
+        public ICollection<SiteOfCompanyDto> Sites { get; set; }
 
     }
 }

@@ -10,7 +10,7 @@ namespace DemoApp.RepositoryExtensions
 {
     public static class CompanyRepositoryExtension
     {
-        public static IQueryable<Company> IncludeDetails(this IQueryable<Company> query, bool include = false)
+        public static IQueryable<Company> IncludeDetails(this IQueryable<Company> query, bool include = true)
         { 
             if (!include)
                 return query;

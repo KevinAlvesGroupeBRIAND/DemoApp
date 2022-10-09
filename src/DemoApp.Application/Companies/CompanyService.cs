@@ -49,6 +49,12 @@ namespace DemoApp.Companies
             return ObjectMapper.Map<Company, CompanyDto>(entity);
         }
 
+        public async Task<CompanyDto> GetByCodeAsync(string code)
+        {
+            var entity = await _companyRepository.GetAsync(o => o.Code == code, includeDetails: true);
+            return ObjectMapper.Map<Company, CompanyDto>(entity);
+        }
+
         public async Task<CompanyDto> UpdateAsync(Guid id, UpdateCompanyDto input)
         {
             var entity = await _companyRepository.GetAsync(id, includeDetails: true);

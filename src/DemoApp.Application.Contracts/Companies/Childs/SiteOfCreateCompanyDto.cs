@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DemoApp.Sites
+namespace DemoApp.Companies.Childs
 {
-    public class CreateSiteDto
+    public class SiteOfCreateCompanyDto
     {
-        public Guid CompanyId { get; set; }
-
         public string Code { get; set; }
 
         public string Name { get; set; }

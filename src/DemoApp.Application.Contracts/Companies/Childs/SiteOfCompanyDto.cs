@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Volo.Abp.Application.Dtos;
 
-namespace DemoApp.Sites
+namespace DemoApp.Companies.Childs
 {
-    public class CreateSiteDto
+    public class SiteOfCompanyDto : FullAuditedEntityDto<Guid>
     {
-        public Guid CompanyId { get; set; }
-
         public string Code { get; set; }
 
         public string Name { get; set; }

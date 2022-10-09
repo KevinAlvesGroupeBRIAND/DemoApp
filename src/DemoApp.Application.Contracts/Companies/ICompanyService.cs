@@ -11,6 +11,8 @@ namespace DemoApp.Companies
         // SCRUD
         public Task<CompanyDto> GetAsync(Guid id);
 
+        public Task<CompanyDto> GetByCodeAsync(string code);
+
         public Task<IEnumerable<CompanyDto>> GetAllAsync();
 
         public Task<CompanyDto> CreateAsync(CreateCompanyDto input);

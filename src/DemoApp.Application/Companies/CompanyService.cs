@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using DemoApp.Sites;
+using Microsoft.AspNetCore.Authorization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,19 @@ namespace DemoApp.Companies
         public async Task<CompanyDto> CreateAsync(CreateCompanyDto input)
         {
             var entity = ObjectMapper.Map<CreateCompanyDto, Company>(input);
+            //var entity = new Company()
+            //{
+            //    Name = input.Name,
+            //    Code = input.Code,
+            //    Sites = input.Sites
+            //        .Select(s => new Site(GuidGenerator.Create())
+            //        {
+            //            Code = s.Code,
+            //            Name = s.Name,
+            //        })
+            //        .ToHashSet()
+            //};
+
             entity = await _companyRepository.InsertAsync(entity);
             return ObjectMapper.Map<Company, CompanyDto>(entity);
         }

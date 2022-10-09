@@ -10,6 +10,9 @@ namespace DemoApp.EntityFrameworkCore;
 [ConnectionStringName("Default")]
 public class DemoAppDbContext : AbpDbContext<DemoAppDbContext>
 {
+    public DbSet<Company> Companies { get; set; }
+    public DbSet<Site> Sites { get; set; }
+
     public DemoAppDbContext(DbContextOptions<DemoAppDbContext> options)
         : base(options)
     {

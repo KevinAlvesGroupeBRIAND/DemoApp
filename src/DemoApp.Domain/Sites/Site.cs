@@ -10,6 +10,16 @@ namespace DemoApp.Sites
 {
     public class Site : FullAuditedEntity<Guid>
     {
+        protected Site()
+        {
+            /* This constructor is for ORMs to be used while getting the entity from database. */
+        }
+
+        public Site(Guid id) : base(id)
+        {
+
+        }
+
         public virtual Guid CompanyId { get; set; }
 
         public virtual Company Company { get; set; }

@@ -31,7 +31,7 @@ public class DemoAppTestDataSeedContributor : IDataSeedContributor, ITransientDe
 
     private async Task<Company> GetCompany1()
     {
-        return await _companyRepository.InsertAsync(new Company()
+        return await _companyRepository.InsertAsync(new Company(_guidGenerator.Create())
         {
             Code = "C1",
             Name = "Company 1",

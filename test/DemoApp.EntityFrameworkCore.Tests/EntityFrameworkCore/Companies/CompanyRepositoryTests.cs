@@ -35,7 +35,7 @@ namespace DemoApp.EntityFrameworkCore.Companies
         [Fact]
         public async Task Should_Create_Company()
         {
-            var result = await _companyRepository.InsertAsync(new Company
+            var result = await _companyRepository.InsertAsync(new Company(_guidGenerator.Create())
             {
                 Code = "CTEST",
                 Name = "Company TEST",

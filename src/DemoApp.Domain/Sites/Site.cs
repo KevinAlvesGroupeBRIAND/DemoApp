@@ -8,7 +8,7 @@ using Volo.Abp.Domain.Entities.Auditing;
 
 namespace DemoApp.Sites
 {
-    public class Site : FullAuditedEntity<Guid>
+    public class Site : AuditedEntity<Guid>
     {
         protected Site()
         {

@@ -24,7 +24,7 @@ public class DemoAppTestDataSeedContributor : IDataSeedContributor, ITransientDe
     public Task SeedAsync(DataSeedContext context)
     {
         var taskCompany1 = GetCompany1();
-        var i = taskCompany1.Result;
+        var taskCompany2 = GetCompany2();
 
         return Task.CompletedTask;
     }
@@ -46,6 +46,28 @@ public class DemoAppTestDataSeedContributor : IDataSeedContributor, ITransientDe
                 {
                     Code = "C1_S2",
                     Name = "Site 2 (C1)"
+                },
+            }
+        });
+    }    
+    
+    private async Task<Company> GetCompany2()
+    {
+        return await _companyRepository.InsertAsync(new Company()
+        {
+            Code = "C2",
+            Name = "Company 2",
+            Sites = new List<Site>
+            {
+                new Site(_guidGenerator.Create())
+                {
+                    Code = "C2_S1",
+                    Name = "Site 1 (C2)"
+                },
+                new Site(_guidGenerator.Create())
+                {
+                    Code = "C2_S2",
+                    Name = "Site 2 (C2)"
                 },
             }
         });

@@ -13,12 +13,10 @@ namespace DemoApp.Companies
 {
     public class CompanyServiceTests : DemoAppApplicationTestBase
     {
-        private readonly IGuidGenerator _guidGenerator;
         private readonly ICompanyService _companyService;
 
         public CompanyServiceTests()
         {
-            _guidGenerator = GetRequiredService<IGuidGenerator>();
             _companyService = GetRequiredService<ICompanyService>();
         }
 
@@ -129,13 +127,25 @@ namespace DemoApp.Companies
             result0.Id.ShouldNotBe(Guid.Empty);
             result0.Code.ShouldBe("C10");
             result0.Name.ShouldBe("Company 10");
-            result0.Sites.Count().ShouldBe(2);
+            result0.Sites.Count.ShouldBe(2);
+
+            var result0_0 = result0.Sites.ElementAt(0); 
+            result0_0.Id.ShouldNotBe(Guid.Empty);
+
+            var result0_1 = result0.Sites.ElementAt(1);
+            result0_1.Id.ShouldNotBe(Guid.Empty);
 
             var result1 = result.ElementAt(1);
             result1.Id.ShouldNotBe(Guid.Empty);
             result1.Code.ShouldBe("C11");
             result1.Name.ShouldBe("Company 11");
-            result1.Sites.Count().ShouldBe(3);
+            result1.Sites.Count.ShouldBe(3);
+
+            var result1_0 = result1.Sites.ElementAt(0);
+            result1_0.Id.ShouldNotBe(Guid.Empty);
+
+            var result1_1 = result1.Sites.ElementAt(1);
+            result1_1.Id.ShouldNotBe(Guid.Empty);
         }
 
         [Fact]
@@ -157,13 +167,11 @@ namespace DemoApp.Companies
                     },
                     new SiteOfUpdateCompanyDto
                     {
-                        Id = _guidGenerator.Create(),
                         Code = "S3_C1",
                         Name = "Site 3 (C1)"
                     },
                     new SiteOfUpdateCompanyDto
                     {
-                        Id = _guidGenerator.Create(),
                         Code = "S4_C1",
                         Name = "Site 4 (C1)"
                     }

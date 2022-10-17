@@ -69,6 +69,67 @@ namespace DemoApp.EntityFrameworkCore.Companies
             rchild1.Code.ShouldBe("STEST2");
             rchild1.Name.ShouldBe("Site TEST 2");
         }
+
+        [Fact]
+        public async Task Should_Create_Companies()
+        {
+            var entities = new List<Company> {
+                    new Company
+                    {
+                        Code = "CTEST1",
+                        Name = "Company TEST1",
+                        Sites = new List<Site>
+                        {
+                            new Site(_guidGenerator.Create())
+                            {
+                                Code = "STEST1",
+                                Name = "Site TEST 1"
+                            },
+                            new Site(_guidGenerator.Create())
+                            {
+                                Code = "STEST2",
+                                Name = "Site TEST 2"
+                            }
+                        }
+                    },
+                    new Company
+                    {
+                        Code = "CTEST2",
+                        Name = "Company TEST2",
+                        Sites = new List<Site>
+                        {
+                            new Site(_guidGenerator.Create())
+                            {
+                                Code = "STEST3",
+                                Name = "Site TEST 3"
+                            },
+                            new Site(_guidGenerator.Create())
+                            {
+                                Code = "STEST4",
+                                Name = "Site TEST 4"
+                            }
+                        }
+                    }
+                };
+
+            await _companyRepository.InsertManyAsync(entities, autoSave: true);
+
+            var result0 = entities.ElementAt(0);
+            result0.Id.ShouldNotBe(Guid.Empty);
+            result0.Code.ShouldBe("CTEST1");
+            result0.Name.ShouldBe("Company TEST1");
+            result0.Sites.Count.ShouldBe(2);
+
+            var rchild0 = result0.Sites.ElementAt(0);
+            rchild0.Id.ShouldNotBe(Guid.Empty);
+            rchild0.Code.ShouldBe("STEST1");
+            rchild0.Name.ShouldBe("Site TEST 1");
+
+            var rchild1 = result0.Sites.ElementAt(1);
+            rchild1.Id.ShouldNotBe(Guid.Empty);
+            rchild1.Code.ShouldBe("STEST2");
+            rchild1.Name.ShouldBe("Site TEST 2");
+        }
         
         [Fact]
         public async Task Should_Update_Company()

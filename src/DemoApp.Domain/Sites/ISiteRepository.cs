@@ -7,7 +7,7 @@ using Volo.Abp.Domain.Repositories;
 
 namespace DemoApp.Sites
 {
-    public interface ISiteRepository : IRepository<Site, Guid>
+    public interface ISiteRepository : IRepository<Site, Guid?>
     {
     }
 }

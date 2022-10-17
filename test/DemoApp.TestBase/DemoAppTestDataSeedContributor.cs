@@ -10,21 +10,18 @@ namespace DemoApp;
 
 public class DemoAppTestDataSeedContributor : IDataSeedContributor, ITransientDependency
 {
-    private readonly IGuidGenerator _guidGenerator;
     private readonly ICompanyRepository _companyRepository;
 
     public DemoAppTestDataSeedContributor(
-        IGuidGenerator guidGenerator,
         ICompanyRepository companyRepository)
     {
-        _guidGenerator = guidGenerator;
         _companyRepository = companyRepository;
     }
 
     public Task SeedAsync(DataSeedContext context)
     {
         var taskCompany1 = GetCompany1();
-        var i = taskCompany1.Result;
+        var taskCompany2 = GetCompany2();
 
         return Task.CompletedTask;
     }
@@ -37,14 +34,36 @@ public class DemoAppTestDataSeedContributor : IDataSeedContributor, ITransientDe
             Name = "Company 1",
             Sites = new List<Site>
             {
-                new Site(_guidGenerator.Create())
+                new Site()
                 {
                     Code = "C1_S1",
                     Name = "Site 1 (C1)"
                 },
-                new Site(_guidGenerator.Create())
+                new Site()
                 {
                     Code = "C1_S2",
+                    Name = "Site 2 (C1)"
+                },
+            }
+        });
+    }
+
+    private async Task<Company> GetCompany2()
+    {
+        return await _companyRepository.InsertAsync(new Company()
+        {
+            Code = "C2",
+            Name = "Company 2",
+            Sites = new List<Site>
+            {
+                new Site()
+                {
+                    Code = "C2_S1",
+                    Name = "Site 1 (C1)"
+                },
+                new Site()
+                {
+                    Code = "C2_S2",
                     Name = "Site 2 (C1)"
                 },
             }

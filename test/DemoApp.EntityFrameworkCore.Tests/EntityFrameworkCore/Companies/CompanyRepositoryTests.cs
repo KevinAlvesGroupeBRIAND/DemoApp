@@ -41,12 +41,12 @@ namespace DemoApp.EntityFrameworkCore.Companies
                 Name = "Company TEST",
                 Sites = new List<Site>
                 {
-                    new Site(_guidGenerator.Create())
+                    new Site()
                     {
                         Code = "STEST1",
                         Name = "Site TEST 1"
                     },
-                    new Site(_guidGenerator.Create())
+                    new Site()
                     {
                         Code = "STEST2",
                         Name = "Site TEST 2"
@@ -78,12 +78,12 @@ namespace DemoApp.EntityFrameworkCore.Companies
             currentCompany.Name = "Company TEST";
             currentCompany.Sites = new List<Site>
             {
-                new Site(_guidGenerator.Create())
+                new Site()
                 {
                     Code = "STEST1",
                     Name = "Site TEST 1"
                 },
-                new Site(_guidGenerator.Create())
+                new Site()
                 {
                     Code = "STEST2",
                     Name = "Site TEST 2"

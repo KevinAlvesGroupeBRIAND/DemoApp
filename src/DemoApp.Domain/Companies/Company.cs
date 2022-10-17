@@ -9,7 +9,7 @@ using Volo.Abp.Domain.Entities.Auditing;
 
 namespace DemoApp.Companies
 {
-    public class Company : FullAuditedAggregateRoot<Guid>
+    public class Company : FullAuditedAggregateRoot<Guid?>
     {
         public virtual string Code { get; set; }
 

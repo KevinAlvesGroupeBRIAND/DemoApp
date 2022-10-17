@@ -22,19 +22,6 @@ namespace DemoApp.Companies
         public async Task<CompanyDto> CreateAsync(CreateCompanyDto input)
         {
             var entity = ObjectMapper.Map<CreateCompanyDto, Company>(input);
-            //var entity = new Company()
-            //{
-            //    Name = input.Name,
-            //    Code = input.Code,
-            //    Sites = input.Sites
-            //        .Select(s => new Site(GuidGenerator.Create())
-            //        {
-            //            Code = s.Code,
-            //            Name = s.Name,
-            //        })
-            //        .ToHashSet()
-            //};
-
             entity = await _companyRepository.InsertAsync(entity);
             return ObjectMapper.Map<Company, CompanyDto>(entity);
         }
@@ -80,8 +67,9 @@ namespace DemoApp.Companies
         public async Task<IEnumerable<CompanyDto>> UpdateCompaniesAsync(IDictionary<Guid, UpdateCompanyDto> input)
         {
             // WARNING: DO NOT USE "ContainsKey" BECAUSE EF DOES NOT SUPPORT THIS METHOD...
-            var entities = await _companyRepository.GetListAsync(o => input.Keys.Contains(o.Id));
-            entities = ObjectMapper.Map(input.Values, entities);
+            var entities = await _companyRepository.GetListAsync(o => input.Keys.Contains(o.Id.Value), includeDetails: true);
+            entities = entities.Select(e => ObjectMapper.Map(input[e.Id.Value], e)).ToList();
+            //entities = ObjectMapper.Map(input.Values, entities);
             await _companyRepository.UpdateManyAsync(entities);
             return ObjectMapper.Map<IEnumerable<Company>, IEnumerable<CompanyDto>>(entities);
         }

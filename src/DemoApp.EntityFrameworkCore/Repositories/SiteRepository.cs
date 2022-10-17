@@ -12,7 +12,7 @@ using Volo.Abp.EntityFrameworkCore;
 namespace DemoApp.Repositories
 {
     public class SiteRepository
-        : EfCoreRepository<DemoAppDbContext, Site, Guid>, ISiteRepository
+        : EfCoreRepository<DemoAppDbContext, Site, Guid?>, ISiteRepository
     {
         public SiteRepository(IDbContextProvider<DemoAppDbContext> dbContextProvider) 
             : base(dbContextProvider)

@@ -6,15 +6,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Volo.Abp.Guids;
 using Xunit;
 
 namespace DemoApp.Companies
 {
     public class CompanyServiceTests : DemoAppApplicationTestBase
     {
+        private readonly IGuidGenerator _guidGenerator;
         private readonly ICompanyService _companyService;
+
         public CompanyServiceTests()
         {
+            _guidGenerator = GetRequiredService<IGuidGenerator>();
             _companyService = GetRequiredService<ICompanyService>();
         }
 
@@ -63,6 +67,12 @@ namespace DemoApp.Companies
             result.Code.ShouldBe("C20");
             result.Name.ShouldBe("Company 20");
             result.Sites.Count().ShouldBe(2);
+
+            var result0 = result.Sites.ElementAt(0);
+            result0.Id.ShouldNotBe(Guid.Empty);
+
+            var result1 = result.Sites.ElementAt(1);
+            result1.Id.ShouldNotBe(Guid.Empty);
         }
         
 
@@ -147,8 +157,15 @@ namespace DemoApp.Companies
                     },
                     new SiteOfUpdateCompanyDto
                     {
+                        Id = _guidGenerator.Create(),
                         Code = "S3_C1",
                         Name = "Site 3 (C1)"
+                    },
+                    new SiteOfUpdateCompanyDto
+                    {
+                        Id = _guidGenerator.Create(),
+                        Code = "S4_C1",
+                        Name = "Site 4 (C1)"
                     }
                 }
             });
@@ -156,7 +173,16 @@ namespace DemoApp.Companies
             result.Id.ShouldNotBe(Guid.Empty);
             result.Code.ShouldBe("C1");
             result.Name.ShouldBe("Company 1 (Edited)");
-            result.Sites.Count().ShouldBe(2);
+            result.Sites.Count.ShouldBe(3);
+
+            var result0 = result.Sites.ElementAt(0);
+            result0.Id.ShouldNotBe(Guid.Empty);
+
+            var result1 = result.Sites.ElementAt(1);
+            result1.Id.ShouldNotBe(Guid.Empty);
+
+            var result2 = result.Sites.ElementAt(2);
+            result2.Id.ShouldNotBe(Guid.Empty);
         }
 
         [Fact]
@@ -178,9 +204,9 @@ namespace DemoApp.Companies
                         Sites = new List<SiteOfUpdateCompanyDto> {
                             new SiteOfUpdateCompanyDto
                             {
-                                Id = siteToUpdate1.Id,
+                                //Id = siteToUpdate1.Id,
                                 Code = "C1_S1",
-                                Name = "Site 1 (C1) (Edited)"
+                                Name = "Site 1 (C1) (Edited)",
                             },
                             new SiteOfUpdateCompanyDto
                             {
@@ -199,7 +225,7 @@ namespace DemoApp.Companies
                         Sites = new List<SiteOfUpdateCompanyDto> {
                             new SiteOfUpdateCompanyDto
                             {
-                                Id = siteToUpdate2.Id,
+                                //Id = siteToUpdate2.Id,
                                 Code = "C2_S1",
                                 Name = "Site 1 (C2) (Edited)"
                             },

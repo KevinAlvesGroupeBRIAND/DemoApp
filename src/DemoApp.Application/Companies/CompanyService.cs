@@ -67,9 +67,9 @@ namespace DemoApp.Companies
         public async Task<IEnumerable<CompanyDto>> UpdateCompaniesAsync(IDictionary<Guid, UpdateCompanyDto> input)
         {
             // WARNING: DO NOT USE "ContainsKey" BECAUSE EF DOES NOT SUPPORT THIS METHOD...
-            var entities = await _companyRepository.GetListAsync(o => input.Keys.Contains(o.Id.Value), includeDetails: true);
-            entities = entities.Select(e => ObjectMapper.Map(input[e.Id.Value], e)).ToList();
-            //entities = ObjectMapper.Map(input.Values, entities);
+            IEnumerable<Company> entities = await _companyRepository.GetListAsync(o => input.Keys.Contains(o.Id.Value), includeDetails: true);
+            entities = entities.Select(e => ObjectMapper.Map(input[e.Id.Value], e));
+            //entities = ObjectMapper.Map<IEnumerable<UpdateCompanyDto>, IEnumerable<Company>>(input.Values, entities);
             await _companyRepository.UpdateManyAsync(entities);
             return ObjectMapper.Map<IEnumerable<Company>, IEnumerable<CompanyDto>>(entities);
         }

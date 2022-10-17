@@ -4,7 +4,7 @@ namespace DemoApp.Companies.Childs
 {
     public class SiteOfUpdateCompanyDto
     {
-        public Guid? Id { get; set; }
+        public Guid Id { get; set; }
 
         public string Code { get; set; }
 

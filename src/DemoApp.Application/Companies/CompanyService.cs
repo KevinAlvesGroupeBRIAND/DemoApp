@@ -81,7 +81,10 @@ namespace DemoApp.Companies
         {
             // WARNING: DO NOT USE "ContainsKey" BECAUSE EF DOES NOT SUPPORT THIS METHOD...
             var entities = await _companyRepository.GetListAsync(o => input.Keys.Contains(o.Id));
-            entities = ObjectMapper.Map(input.Values, entities);
+            //entities = ObjectMapper.Map(input.Values, entities);
+            entities = entities
+                .Select(entity => ObjectMapper.Map(input[entity.Id], entity))
+                .ToList();
             await _companyRepository.UpdateManyAsync(entities);
             return ObjectMapper.Map<IEnumerable<Company>, IEnumerable<CompanyDto>>(entities);
         }

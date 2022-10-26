@@ -158,5 +158,74 @@ namespace DemoApp.Companies
             result.Name.ShouldBe("Company 1 (Edited)");
             result.Sites.Count().ShouldBe(2);
         }
+
+        [Fact]
+        public async Task Should_Update_Companies()
+        {
+            var company1 = await _companyService.GetByCodeAsync("C1");
+            var siteToUpdate1 = company1.Sites.ElementAt(0);
+            var company2 = await _companyService.GetByCodeAsync("C2");
+            var siteToUpdate2 = company2.Sites.ElementAt(0);
+
+            var result = await _companyService.UpdateCompaniesAsync(new Dictionary<Guid, UpdateCompanyDto>
+            {
+                {
+                    company1.Id,
+                    new UpdateCompanyDto
+                    {
+                        Code = "C1",
+                        Name = "Company 1 (Edited)",
+                        Sites = new List<SiteOfUpdateCompanyDto> {
+                            new SiteOfUpdateCompanyDto
+                            {
+                                Id = siteToUpdate2.Id,
+                                Code = "C1_S1",
+                                Name = "Site 1 (C1) (Edited)"
+                            },
+                            new SiteOfUpdateCompanyDto
+                            {
+                                Code = "C1_S3",
+                                Name = "Site 3 (C1)"
+                            }
+                        }
+                    }
+                },
+                {
+                    company2.Id,
+                    new UpdateCompanyDto
+                    {
+                        Code = "C2",
+                        Name = "Company 2 (Edited)",
+                        Sites = new List<SiteOfUpdateCompanyDto> {
+                            new SiteOfUpdateCompanyDto
+                            {
+                                Id = siteToUpdate1.Id,
+                                Code = "C2_S1",
+                                Name = "Site 1 (C2) (Edited)"
+                            },
+                            new SiteOfUpdateCompanyDto
+                            {
+                                Code = "C2_S3",
+                                Name = "Site 3 (C1)"
+                            }
+                        }
+                    }
+                },
+            });
+
+            result.Count().ShouldBe(2);
+
+            var result0 = result.ElementAt(0);
+            result0.Id.ShouldNotBe(Guid.Empty);
+            result0.Code.ShouldBe("C1");
+            result0.Name.ShouldBe("Company 1 (Edited)");
+            result0.Sites.Count().ShouldBe(2);
+
+            var result1 = result.ElementAt(1);
+            result1.Id.ShouldNotBe(Guid.Empty);
+            result1.Code.ShouldBe("C2");
+            result1.Name.ShouldBe("Company 2 (Edited)");
+            result1.Sites.Count().ShouldBe(2);
+        }
     }
 }
